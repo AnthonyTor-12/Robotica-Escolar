@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Didáctica - Robótica Educativa</title>
+    <style>
+        /* =========================================
+           Variables CSS (Paleta Tecnológica/Educativa Suave)
+           ========================================= */
+        :root {
+            --color-primario: #4A90E2; /* Azul tecnológico suave */
+            --color-secundario: #36C5A5; /* Menta oscuro/Turquesa suave */
+            --color-acento: #5C6AC4; /* Azul violeta para contrastes */
+            --color-texto: #34495E; /* Gris azulado oscuro para lectura */
+            --color-texto-claro: #6B7280;
+            --color-fondo: #F8FAFC; /* Gris muy claro con tono frío */
+            --color-blanco: #ffffff;
+            --color-borde: #E2E8F0;
+            --transicion-suave: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* =========================================
+           Reseteo Básico
+           ========================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           Encabezado UNL (Logos a la izquierda)
+           ========================================= */
+        .header-unl {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--color-blanco);
+            padding: 20px 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border-bottom: 3px solid var(--color-primario);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logos-contenedor {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .img-san-francisco { height: 75px; width: auto; object-fit: contain; }
+        .img-sello { height: 75px; width: auto; object-fit: contain; }
+
+        .header-textos { text-align: right; flex-grow: 1; }
+        .header-textos h1 { font-size: 1.6rem; color: var(--color-texto); margin-bottom: 5px; font-weight: 700; letter-spacing: 0.5px;}
+        .header-textos h2 { font-size: 1.3rem; color: var(--color-texto-claro); margin-bottom: 5px; font-weight: 500; }
+        .header-textos h3 { font-size: 1.1rem; color: var(--color-primario); margin-bottom: 5px; font-weight: 600; }
+        .header-textos p { font-size: 1.1rem; color: var(--color-acento); font-weight: bold; }
+
+        /* =========================================
+           Contenedores Principales
+           ========================================= */
+        .contenedor-principal {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 60vh;
+        }
+
+        .tarjeta {
+            background-color: var(--color-blanco);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+            border: 1px solid var(--color-borde);
+        }
+
+        /* =========================================
+           Portada de la Guía Didáctica
+           ========================================= */
+        .portada-tema { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid var(--color-borde); }
+        .portada-tema h1 { font-size: 2.2rem; color: var(--color-primario); margin-bottom: 15px; line-height: 1.2; font-weight: 800;}
+        .portada-tema h2 { font-size: 1.4rem; color: var(--color-texto-claro); font-weight: 400; }
+
+        .portada-datos {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
+            background-color: var(--color-fondo); padding: 25px;
+            border-radius: 10px; border-left: 4px solid var(--color-secundario); margin-bottom: 25px;
+        }
+        .dato-item { display: flex; flex-direction: column; }
+        .dato-etiqueta { font-size: 0.85rem; color: var(--color-texto-claro); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px;}
+        .dato-valor { font-size: 1.15rem; color: var(--color-texto); font-weight: 600; }
+        
+        .periodo-academico { text-align: center; margin-bottom: 30px; font-size: 1.1rem; font-weight: 600; color: var(--color-acento); background: rgba(92, 106, 196, 0.08); display: inline-block; padding: 10px 25px; border-radius: 25px; width: 100%;}
+
+        /* =========================================
+           Botones Desplegables Generales (Acordeones)
+           ========================================= */
+        .btn-desplegable {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            background-color: var(--color-blanco); color: var(--color-primario);
+            padding: 10px 25px; border: 2px solid var(--color-primario); border-radius: 8px;
+            font-size: 0.95rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 20px; cursor: pointer;
+            transition: var(--transicion-suave); box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .btn-desplegable:hover { background-color: var(--color-primario); color: var(--color-blanco); }
+        .icono-flecha { transition: var(--transicion-suave); font-size: 0.8rem; }
+        .btn-desplegable.abierto .icono-flecha { transform: rotate(180deg); }
+
+        .info-oculta {
+            display: none; background-color: var(--color-fondo);
+            border-left: 4px solid var(--color-secundario); padding: 25px;
+            margin: 0 auto 25px auto; border-radius: 0 8px 8px 0;
+            text-align: left; animation: aparecer 0.3s ease-out forwards;
+        }
+        .info-oculta.activa { display: block; }
+        @keyframes aparecer { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .info-oculta h3 { color: var(--color-primario); margin-bottom: 5px; font-size: 1.4rem; }
+        .info-oculta h4 { color: var(--color-acento); font-weight: normal; margin-bottom: 15px; font-style: italic; }
+        .info-oculta > img { max-width: 100%; height: auto; display: block; margin: 15px auto; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+
+        /* =========================================
+           Estructura de la Guía (Índice Principal)
+           ========================================= */
+        .estructura-titulo { font-size: 1.8rem; color: var(--color-texto); margin-bottom: 15px; text-align: center; font-weight: 700; border-top: 2px solid var(--color-borde); padding-top: 40px; }
+        .estructura-parrafo { font-size: 1.05rem; text-align: justify; margin-bottom: 30px; color: var(--color-texto-claro); }
+
+        .grid-botones { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        
+        .btn-estructura {
+            background-color: var(--color-blanco); color: var(--color-texto);
+            border: 1px solid var(--color-borde); padding: 18px 20px; border-radius: 10px;
+            font-size: 0.95rem; font-weight: 600; text-align: left; cursor: pointer;
+            transition: var(--transicion-suave); display: flex; align-items: center; 
+            line-height: 1.4; box-shadow: 0 2px 5px rgba(0,0,0,0.02); position: relative; overflow: hidden;
+        }
+        .btn-estructura::before {
+            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px;
+            background-color: var(--color-secundario); transform: scaleY(0); transition: var(--transicion-suave);
+        }
+        .btn-estructura:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: var(--color-secundario); color: var(--color-primario); }
+        .btn-estructura:hover::before { transform: scaleY(1); }
+
+        /* =========================================
+           Ventana Modal (Pop-up)
+           ========================================= */
+        .modal-overlay {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(5px); align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.activo { display: flex; opacity: 1; }
+
+        .modal-contenido {
+            background-color: var(--color-blanco); width: 92%; max-width: 900px;
+            height: 85vh; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; position: relative;
+            transform: scale(0.95); transition: transform 0.3s ease; overflow: hidden;
+        }
+        .modal-overlay.activo .modal-contenido { transform: scale(1); }
+
+        .modal-header {
+            padding: 20px 30px; border-bottom: 1px solid var(--color-borde);
+            display: flex; justify-content: space-between; align-items: center;
+            background-color: var(--color-fondo); border-radius: 16px 16px 0 0;
+        }
+        .modal-header h2 { font-size: 1.2rem; color: var(--color-primario); margin: 0; font-weight: 700; }
+        
+        .btn-cerrar {
+            background: rgba(226, 232, 240, 0.8); border: none; width: 36px; height: 36px;
+            border-radius: 50%; font-size: 24px; color: var(--color-texto); line-height: 1;
+            cursor: pointer; transition: var(--transicion-suave); display: flex;
+            align-items: center; justify-content: center;
+        }
+        .btn-cerrar:hover { background: #FF5A5F; color: white; transform: rotate(90deg); }
+
+        .modal-body { padding: 40px; overflow-y: auto; flex-grow: 1; }
+        .modal-body::-webkit-scrollbar { width: 8px; }
+        .modal-body::-webkit-scrollbar-track { background: var(--color-fondo); }
+        .modal-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .modal-body::-webkit-scrollbar-thumb:hover { background: var(--color-primario); }
+
+        /* Ocultar secciones originales para inyectarlas en el modal */
+        .secciones-ocultas { display: none; }
+
+        /* =========================================
+           Estilos Internos del Contenido (Secciones)
+           ========================================= */
+        .titulo-seccion { color: var(--color-primario); font-size: 2rem; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--color-borde); }
+        .subtitulo-seccion { color: var(--color-acento); font-size: 1.4rem; margin-bottom: 15px; margin-top: 30px; }
+        .subtitulo-menor { color: var(--color-secundario); font-size: 1.2rem; margin-bottom: 10px; margin-top: 20px; font-weight: bold;}
+
+        .bloque-texto { margin-bottom: 30px; }
+        .bloque-texto p { margin-bottom: 15px; text-align: justify; font-size: 1.05rem; }
+
+        /* Listas */
+        .lista-didactica { list-style-type: none; padding-left: 0; }
+        .lista-didactica li { position: relative; padding-left: 25px; margin-bottom: 12px; font-size: 1.05rem; }
+        .lista-didactica li::before { content: "•"; color: var(--color-primario); font-weight: bold; font-size: 1.5rem; position: absolute; left: 0; top: -4px; }
+        
+        .lista-numerada { padding-left: 20px; margin-bottom: 20px; }
+        .lista-numerada li { margin-bottom: 12px; font-size: 1.05rem; line-height: 1.6; }
+        .lista-numerada li::marker { color: var(--color-primario); font-weight: bold; }
+
+        .lista-referencias { list-style-type: none; padding-left: 0; margin-bottom: 20px; }
+        .lista-referencias li { padding-left: 40px; text-indent: -40px; margin-bottom: 15px; font-size: 1.05rem; line-height: 1.6; word-wrap: break-word; }
+
+        .resaltado { font-weight: 600; color: var(--color-secundario); background: rgba(54, 197, 165, 0.1); padding: 2px 6px; border-radius: 4px;}
+
+        /* Imágenes */
+        .imagen-centrada { display: block; margin: 20px auto; max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .imagen-subtitulo { display: block; max-width: 450px; margin: 30px auto; height: auto; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        /* Tablas */
+        .tabla-datos { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: var(--color-blanco); box-shadow: 0 2px 8px rgba(0,0,0,0.03); border-radius: 8px; overflow: hidden; border: 1px solid var(--color-borde); }
+        .tabla-datos th, .tabla-datos td { padding: 12px 15px; border-bottom: 1px solid var(--color-borde); text-align: left; font-size: 0.95rem; }
+        .tabla-datos th { background-color: var(--color-fondo); color: var(--color-texto); font-weight: bold; width: 25%; }
+        .tabla-datos tr:last-child th, .tabla-datos tr:last-child td { border-bottom: none; }
+
+        /* Código */
+        .bloque-codigo { background-color: #1E293B; color: #E2E8F0; padding: 15px; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; overflow-x: auto; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 4px solid var(--color-secundario);}
+
+        /* Componentes */
+        .lista-componentes { display: flex; flex-direction: column; gap: 20px; }
+        .componente-item { display: flex; align-items: center; gap: 20px; background-color: var(--color-blanco); padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border: 1px solid var(--color-borde); border-left: 4px solid var(--color-acento); }
+        .componente-img { width: 120px; height: auto; border-radius: 6px; flex-shrink: 0; }
+        .componente-texto { flex-grow: 1; }
+        .componente-titulo { color: var(--color-primario); font-size: 1.2rem; margin-bottom: 8px; font-weight: bold; }
+        .componente-detalle { font-size: 0.95rem; margin-bottom: 4px; color: var(--color-texto); line-height: 1.4; }
+
+        /* Cuadrícula Proyectos */
+        .grid-proyectos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; align-items: start; }
+        .btn-proyecto { width: 100%; justify-content: space-between; padding: 15px 20px; font-size: 0.95rem; text-align: left; margin-bottom: 10px; min-height: 85px; display: inline-flex; align-items: center; }
+
+        /* =========================================
+           Pie de Página (Footer)
+           ========================================= */
+        .footer-unl {
+            background-color: #1E293B; /* Azul oscuro muy elegante */
+            color: var(--color-blanco);
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 4px solid var(--color-primario);
+        }
+
+        .footer-contenido {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-logo img {
+            width: 150px;
+            max-width: 100%;
+            height: auto;
+            /* Filtro removido para que la imagen mantenga sus colores reales */
+        }
+
+        .footer-info, .footer-contacto {
+            flex-grow: 1;
+            min-width: 250px;
+        }
+
+        .footer-info p, .footer-contacto p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #CBD5E1;
+        }
+
+        .footer-info strong, .footer-contacto strong {
+            color: var(--color-blanco);
+            font-weight: 600;
+        }
+
+        .footer-contacto a {
+            color: var(--color-secundario);
+            text-decoration: none;
+            transition: var(--transicion-suave);
+        }
+
+        .footer-contacto a:hover {
+            color: var(--color-blanco);
+            text-decoration: underline;
+        }
+
+        .btn-mapa {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(54, 197, 165, 0.15);
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(54, 197, 165, 0.3);
+            margin-top: 10px;
+        }
+        .btn-mapa:hover { background-color: rgba(54, 197, 165, 0.3); }
+
+        /* Responsivo */
+        @media screen and (max-width: 850px) {
+            .header-unl { flex-direction: column; text-align: center; }
+            .logos-contenedor { justify-content: center; }
+            .header-textos { text-align: center; }
+            
+            .portada-tema h1 { font-size: 1.8rem; }
+            .titulo-seccion { font-size: 1.6rem; }
+            .tarjeta { padding: 20px; }
+            .componente-item { flex-direction: column; text-align: center; }
+            .componente-img { width: 100%; max-width: 200px; }
+            .grid-proyectos { grid-template-columns: 1fr; }
+            .btn-proyecto { min-height: auto; }
+            
+            .tabla-datos th, .tabla-datos td { display: block; width: 100%; }
+            .tabla-datos th { border-bottom: none; color: var(--color-primario);}
+            .tabla-datos td { border-top: none; margin-bottom: 10px; border-bottom: 1px dashed var(--color-borde);}
+            .imagen-subtitulo { max-width: 100%; }
+            
+            .modal-contenido { width: 95%; height: 90vh; }
+            .modal-body { padding: 20px; }
+
+            .footer-contenido { flex-direction: column; text-align: center; }
+            .footer-logo img { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado Universitario (Logos a la izquierda) -->
+    <header class="header-unl">
+        <div class="logos-contenedor">
+            <img src="san francisco.png" alt="San Francisco" class="img-san-francisco">
+            <img src="1 unl sello.png" alt="Sello principal UNL" class="img-sello">
+            <img src="2 unl sello.png" alt="Sello secundario UNL" class="img-sello">
+        </div>
+        <div class="header-textos">
+            <h1>UNIVERSIDAD NACIONAL DE LOJA</h1>
+            <h2>UNIDAD DE EDUCACIÓN A DISTANCIA Y EN LÍNEA</h2>
+            <h3>CARRERA PEDAGOGÍA DE LAS CIENCIAS EXPERIMENTALES</h3>
+            <p>(INFORMÁTICA)</p>
+        </div>
+    </header>
+
+    <main class="contenedor-principal">
+        
+        <!-- Portada e Índice -->
+        <section class="tarjeta">
+            <div class="portada-tema">
+                <button class="btn-desplegable" aria-expanded="false" style="margin: 0 auto 25px auto;">
+                    Guía Didáctica <span class="icono-flecha">▼</span>
+                </button>
+
+                <div class="info-oculta">
+                    <h3>Robótica Escolar con Arduino Uno</h3>
+                    <h4>Un itinerario formativo de cuatro proyectos graduados: de la mecánica de engranajes a la robótica autónoma con sensores</h4>
+                    <img src="cuadro comparativo.png" alt="Cuadro comparativo de progresión de proyectos">
+                    <p>Esta guía acompaña al docente en la planificación e implementación de un itinerario de robótica educativa distribuido en cuatro cursos consecutivos de Educación General Básica. Los cuatro proyectos no se presentan como actividades aisladas, sino como una progresión intencional en la que cada curso retoma y profundiza los conceptos trabajados en el nivel anterior, tal como se explica en la sección 5 de este documento.</p>
+                </div>
+
+                <h1>GUÍA DIDÁCTICA DE ROBÓTICA ESCOLAR</h1>
+                <h2>— DE LA CAJA DE CAMBIOS AL CARRO SEGUIDOR DE LUZ</h2>
+            </div>
+
+            <div class="portada-datos">
+                <div class="dato-item"><span class="dato-etiqueta">Asignatura</span><span class="dato-valor">Robótica Educativa</span></div>
+                <div class="dato-item"><span class="dato-etiqueta">Ciclo</span><span class="dato-valor">Séptimo</span></div>
+                <div class="dato-item"><span class="dato-etiqueta">Estudiante</span><span class="dato-valor">Anthony Torres</span></div>
+                <div class="dato-item"><span class="dato-etiqueta">Docente Tutor Institucional</span><span class="dato-valor">Mgtr. Stalin Chayanne Carrillo Soto</span></div>
+            </div>
+
+            <div class="periodo-academico">PERIODO ACADÉMICO<br>Marzo – Agosto 2026</div>
+
+            <h2 class="estructura-titulo">ESTRUCTURA DE LA GUÍA</h2>
+            <p class="estructura-parrafo">Esta guía didáctica está organizada en secciones progresivas que llevan al docente desde la fundamentación conceptual hasta la evaluación final de los cuatro proyectos. Haz clic en cada botón para abrir su contenido:</p>
+
+            <div class="grid-botones">
+                <button class="btn-estructura" data-target="seccion-0">0. Introducción y propósito de la guía</button>
+                <button class="btn-estructura" data-target="seccion-1">1. Descripción general de los materiales, el Arduino Uno y los componentes</button>
+                <button class="btn-estructura" data-target="seccion-2">2. Cómo empezar: primera sesión y gestión del aula por nivel</button>
+                <button class="btn-estructura" data-target="seccion-3">3. Progresión conceptual a través de los cuatro proyectos</button>
+                <button class="btn-estructura" data-target="seccion-4">4. Actividades didácticas graduadas: los cuatro proyectos en detalle</button>
+                <button class="btn-estructura" data-target="seccion-5">5. Relación entre los proyectos: un currículo en espiral</button>
+                <button class="btn-estructura" data-target="seccion-6">6. Estrategias pedagógicas y orientaciones metodológicas</button>
+                <button class="btn-estructura" data-target="seccion-7">7. Evaluación y seguimiento del aprendizaje</button>
+                <button class="btn-estructura" data-target="seccion-8">8. Referencias bibliográficas (APA 7ma edición)</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pie de Página (Footer Nuevo) -->
+    <footer class="footer-unl">
+        <div class="footer-contenido">
+            
+            <div class="footer-logo">
+                <img src="pie de pagina.png" alt="Pie de página UNL">
+            </div>
+            
+            <div class="footer-info">
+                <p><strong>Ciudad Universitaria Guillermo Falconí</strong> - Loja - Ecuador</p>
+                <p>07 2593550 (Opción 1 - Modalidad Presencial)</p>
+                <p>07 2593550 (Opción 2 - Modalidad Distancia)</p>
+            </div>
+            
+            <div class="footer-contacto">
+                <p><strong>Contáctanos:</strong></p>
+                <p>✉️ <a href="mailto:admision@unl.edu.ec">admision@unl.edu.ec</a></p>
+                <p>✉️ <a href="mailto:comunicacion@unl.edu.ec">comunicacion@unl.edu.ec</a></p>
+                <a href="https://www.openstreetmap.org/?mlat=-4.03364&mlon=-79.20311#map=19/-4.033691/-79.203014" target="_blank" class="btn-mapa">
+                    📍 Ver Ubicación en el Mapa
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- VENTANA MODAL FLOTANTE -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Contenido</h2>
+                <button class="btn-cerrar" id="btn-cerrar-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Aquí se inyecta el contenido de las secciones -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR OCULTO CON EL 100% DEL TEXTO ORIGINAL -->
+    <div class="secciones-ocultas">
+        
+        <!-- Sección 0 -->
+        <div id="seccion-0" data-titulo="0. Introducción">
+            <h2 class="titulo-seccion">0. Introducción</h2>
+            
+            <div class="bloque-texto">
+                <p>La enseñanza de la robótica a lo largo de la Educación General Básica no debería reducirse a actividades sueltas de un solo año. Cuando los proyectos de distintos cursos se diseñan de forma articulada, el estudiante construye un mapa conceptual coherente que va de lo mecánico a lo electrónico y de lo electrónico a lo inteligente. Esta guía nace de esa idea: proponer un itinerario de cuatro proyectos —una caja de cambios, un semáforo, un carro esquivador de obstáculos y un carro seguidor de luz— que, aplicados en 5to, 6to, 7mo y 8vo año respectivamente, construyen de manera progresiva las competencias de pensamiento computacional, diseño mecánico y programación con microcontroladores.</p>
+                <p>El proyecto de 5to año trabaja exclusivamente la mecánica de transmisión (engranajes, piñones y relación de transmisión) sin electrónica, sentando las bases físicas del movimiento que los proyectos posteriores automatizarán. A partir de 6to año se incorpora el microcontrolador Arduino Uno, que acompaña los tres proyectos siguientes con una complejidad creciente: primero temporización y salidas digitales (semáforo), luego lectura de sensores y condicionales (esquivador) y finalmente control comparativo con dos sensores para lograr un comportamiento autónomo (seguidor de luz).</p>
+                <p>A lo largo de esta guía se presenta una propuesta organizada y fácil de aplicar. Cada proyecto se describe con su objetivo, materiales, pasos de construcción, esquema de programación, conexión curricular y rúbrica de evaluación adaptada a la edad del grupo. Se incluye además una sección específica que explica cómo se articulan los cuatro proyectos entre sí, de modo que el equipo docente de la institución pueda planificarlos como una secuencia interanual y no como experiencias desconectadas.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">¿A quién va dirigida esta guía?</h3>
+                <p>Principalmente a docentes de 5to a 8vo año de Educación General Básica que trabajan en áreas de Ciencias Naturales, Tecnología, Matemática o cualquier espacio curricular donde se quiera incorporar robótica educativa. También es útil para coordinadores de área y directivos que deseen planificar la robótica como un eje transversal de varios años y no como una actividad puntual.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">¿Qué se necesita para empezar?</h3>
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Para 5to año:</span> kit de mecanismos con engranajes intercambiables, ejes, base de montaje y un motorreductor manual o de manivela.</li>
+                    <li><span class="resaltado">Para 6to, 7mo y 8vo año:</span> una placa Arduino Uno por equipo, cable USB, protoboard, cables jumper, resistencias, LEDs (para el semáforo), sensor ultrasónico HC-SR04 (para el esquivador), sensores LDR o fotorresistencias (para el seguidor de luz), módulo controlador de motores L298N y chasis de carro con motores DC y ruedas.</li>
+                    <li>Una computadora con el IDE de Arduino instalado (gratuito, disponible para Windows, Mac y Linux).</li>
+                    <li>Espacio suficiente en el piso o mesas amplias para probar los carros (al menos 100x100 cm por equipo).</li>
+                    <li>Disposición para experimentar junto a los estudiantes; el error forma parte natural del proceso.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">OBJETIVOS DE LA GUÍA DIDÁCTICA</h3>
+                <h4 class="subtitulo-menor">Objetivo general</h4>
+                <p>Desarrollar en los estudiantes de 5to a 8vo año de Educación General Básica las competencias de pensamiento computacional, diseño mecánico y programación de microcontroladores, mediante un itinerario progresivo de cuatro proyectos articulados.</p>
+                
+                <h4 class="subtitulo-menor">Objetivos específicos</h4>
+                <ul class="lista-didactica">
+                    <li>Introducir los conceptos físicos de transmisión de movimiento como base mecánica previa.</li>
+                    <li>Familiarizar a los estudiantes con el Arduino Uno y el entorno de programación.</li>
+                    <li>Desarrollar habilidades de resolución de problemas mediante iteración.</li>
+                    <li>Fomentar el trabajo en equipo a través de roles definidos.</li>
+                    <li>Conectar los proyectos robóticos con contenidos curriculares de ciencias exactas.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección 1 -->
+        <div id="seccion-1" data-titulo="1. Descripción general de los materiales">
+            <h2 class="titulo-seccion">1. Descripción general de los materiales, el Arduino Uno y los componentes</h2>
+            
+            <h3 class="subtitulo-seccion">1.1. El proyecto mecánico de 5to año: la caja de cambios</h3>
+            <img src="1 caja .png" alt="Caja de cambios inicial" class="imagen-centrada">
+            <div class="bloque-texto">
+                <p>El primer proyecto del itinerario no utiliza electrónica. Se trabaja con un kit de piezas mecánicas (engranajes rectos de distinto número de dientes, ejes, soportes y una manivela o pequeño motor de corriente continua sin control) para que el estudiante arme una caja de cambios simplificada de dos o tres velocidades. El objetivo es puramente físico: comprender cómo el número de dientes de dos engranajes acoplados determina la relación de transmisión, y cómo esa relación afecta la velocidad de giro y la fuerza (torque) disponible en el eje de salida.</p>
+            </div>
+            <img src="caja de cambos.png" alt="Caja de cambios detallada" class="imagen-centrada">
+
+            <h3 class="subtitulo-seccion">1.2. El microcontrolador Arduino Uno</h3>
+            <img src="2 arduino.jpg" alt="Placa Arduino Uno" class="imagen-centrada">
+            <div class="bloque-texto">
+                <p>A partir de 6to año, los tres proyectos siguientes se construyen sobre la placa Arduino Uno, un microcontrolador de placa abierta ampliamente usado en robótica educativa por su facilidad de uso y su comunidad de soporte. Arduino permite conectar sensores y actuadores y programarlos mediante el IDE oficial, gratuito y disponible para distintos sistemas operativos.</p>
+                <p>El Arduino Uno cuenta con 14 pines digitales (algunos con salida PWM para control de velocidad de motores), 6 entradas analógicas, un puerto USB para programación y alimentación, y un regulador de voltaje que admite alimentación externa de 7 a 12V, útil cuando el proyecto incluye motores DC.</p>
+            </div>
+
+            <button class="btn-desplegable" aria-expanded="false">
+                1.3 Componentes electrónicos comunes a los proyectos con Arduino <span class="icono-flecha">▼</span>
+            </button>
+            <div class="info-oculta">
+                <div class="lista-componentes">
+                    
+                    <div class="componente-item">
+                        <img src="2 arduino.jpg" alt="Arduino UNO" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">1. Arduino UNO</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Semáforo, esquivador, seguidor de luz</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Controla la lógica del programa y procesa las señales de sensores y salidas.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="4 leds.jpg" alt="LEDs" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">2. LEDs (rojo, amarillo, verde)</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Semáforo</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Salidas digitales que representan las señales de tránsito.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="5 resistencias.jpg" alt="Resistencias" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">3. Resistencias (220 Ω – 330Ω)</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Semáforo, seguidor de luz</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Limitan la corriente que llega a LEDs y protegen las entradas analógicas de los sensores LDR.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="6 protoboard.jpg" alt="Protoboard" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">4. Protoboard y cables jumper</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Todos los proyectos con Arduino</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Permiten armar el circuito sin soldadura, ideal para el contexto escolar.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="7 sensor.jpg" alt="Sensor ultrasónico HC-SR04" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">5. Sensor ultrasónico HC-SR04</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Carro esquivador de obstáculos</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Mide distancia mediante el eco de un pulso ultrasónico; permite detectar obstáculos entre 2 y 400 cm.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="8 foto resistencia.jpg" alt="Fotorresistencias" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">6. Fotorresistencias (LDR)</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Carro seguidor de luz</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Varían su resistencia según la intensidad lumínica; se leen como entradas analógicas para comparar la luz a ambos lados del carro.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="8 modulo.jpg" alt="Módulo controlador de motores L298N" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">7. Módulo controlador de motores L298N</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Carro esquivador, carro seguidor de luz</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Permite controlar la dirección y velocidad de los motores DC a partir de señales de baja corriente del Arduino.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="9 chasis.jpg" alt="Chasis con motores" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">8. Chasis con motores DC y ruedas</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Carro esquivador, carro seguidor de luz</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Estructura móvil sobre la que se monta el Arduino, el módulo de motores y los sensores.</p>
+                        </div>
+                    </div>
+
+                    <div class="componente-item">
+                        <img src="10 bateria.jpg" alt="Batería" class="componente-img">
+                        <div class="componente-texto">
+                            <h4 class="componente-titulo">9. Batería o pilas (7-9V)</h4>
+                            <p class="componente-detalle"><span class="resaltado">Proyecto donde se usa:</span> Carro esquivador, carro seguidor de luz</p>
+                            <p class="componente-detalle"><span class="resaltado">Función:</span> Alimentan de forma autónoma el Arduino y los motores mientras el carro se desplaza.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <h3 class="subtitulo-seccion">1.4 Entorno de programación</h3>
+            <img src="progromación.jpg" alt="Entorno de programación IDE Arduino" class="imagen-centrada">
+            <div class="bloque-texto">
+                <p>Se recomienda usar el IDE oficial de Arduino con su lenguaje basado en C/C++ simplificado, ya que los tres proyectos con microcontrolador (semáforo, esquivador y seguidor de luz) requieren manejo directo de pines y tiempos. Para 6to año, el docente puede optar por escribir el código de forma guiada junto con los estudiantes (programación asistida), mientras que en 7mo y 8vo año se espera una participación más autónoma del estudiante en la escritura y depuración del código. Alternativamente, para 6to año existen entornos de bloques compatibles con Arduino (como mBlock o Ardublock) que facilitan una primera aproximación antes de pasar al código de texto.</p>
+            </div>
+        </div>
+
+        <!-- Sección 2 -->
+        <div id="seccion-2" data-titulo="2. Cómo empezar">
+            <h2 class="titulo-seccion">2. Cómo empezar: primera sesión y gestión del aula por nivel</h2>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">2.1 Organización de equipos por nivel</h3>
+                <p>La robótica funciona mejor en equipos pequeños en los cuatro niveles. Se recomienda:</p>
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Grupos pequeños:</span> de 2 a 3 estudiantes por kit o por placa Arduino.</li>
+                    <li><span class="resaltado">Asignación de roles rotativos:</span> Constructor, Programador (o Encargado de circuito, en 5to año) y Documentador.</li>
+                    <li><span class="resaltado">Rotación:</span> El rol rota cada 20-25 minutos para garantizar que todos practiquen todas las tareas.</li>
+                    <li><span class="resaltado">Zonas seguras:</span> Delimitar zonas de prueba en el piso con cinta masking para los proyectos de carros (7mo y 8vo año), de al menos 100x100 cm por equipo.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">2.2 Primera clase — 5to año: Caja de cambios (90 min)</h3>
+                <ol class="lista-numerada">
+                    <li><span class="resaltado">Organizar equipos y presentar el reto (15 min):</span> plantear la pregunta guía "¿por qué una bicicleta tiene varias marchas?" y entregar el kit de engranajes a cada equipo.</li>
+                    <li><span class="resaltado">Exploración libre de las piezas (20 min):</span> los estudiantes identifican engranajes de distinto tamaño, cuentan sus dientes y prueban acoplarlos manualmente.</li>
+                    <li><span class="resaltado">Construcción guiada de un tren de engranajes simple (30 min):</span> un engranaje motriz (piñón) que impulsa un engranaje conducido (corona) montados en la base.</li>
+                    <li><span class="resaltado">Primera medición (15 min):</span> los equipos giran el eje de entrada un número fijo de vueltas y cuentan cuántas vueltas da el eje de salida, registrando el resultado.</li>
+                    <li><span class="resaltado">Cierre y puesta en común (10 min):</span> comparar resultados entre equipos y discutir por qué cambia la velocidad según el tamaño de los engranajes.</li>
+                </ol>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">2.3 Primera clase — 6to, 7mo y 8vo año: introducción al Arduino Uno (90 min)</h3>
+                <p>Independientemente del proyecto específico de cada nivel (semáforo, esquivador o seguidor de luz), la primera sesión con Arduino sigue una estructura similar, ajustando la complejidad al grado:</p>
+                <ol class="lista-numerada">
+                    <li><span class="resaltado">Organizar equipos y normas de uso (15 min):</span> entregar la placa Arduino Uno, protoboard y cables. Establecer que el circuito solo se conecta a la computadora cuando el docente lo indica.</li>
+                    <li><span class="resaltado">Reconocimiento de la placa (15 min):</span> identificar los pines digitales, analógicos, el puerto USB y el pin de tierra (GND), apoyándose en un diagrama impreso.</li>
+                    <li><span class="resaltado">Instalación y conexión del IDE (15 min):</span> abrir el IDE de Arduino, seleccionar la placa y el puerto correspondiente.</li>
+                    <li><span class="resaltado">Primera prueba: encender un LED (20 min):</span> montar un LED con su resistencia en la protoboard y cargar un programa simple que lo encienda y apague. Introducir el concepto de "cargar" un programa a la placa.</li>
+                    <li><span class="resaltado">Introducir el concepto de espera con retardo (15 min):</span> modificar el tiempo que el LED permanece encendido y apagado, para preparar el concepto de temporización que se usará en el semáforo (6to), el esquivador (7mo) y el seguidor de luz (8vo).</li>
+                    <li><span class="resaltado">Cierre (10 min):</span> guardar el código, desconectar los circuitos y ordenar los materiales.</li>
+                </ol>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">2.4 Gestión del aula durante las actividades</h3>
+                <p>La clase de robótica puede volverse caótica sin estructura, tanto en 5to año con piezas mecánicas pequeñas como en los niveles con electrónica. Estas estrategias ayudan:</p>
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Señal de silencio:</span> cuando el docente levanta la mano, todos dejan de construir o programar y miran al frente.</li>
+                    <li><span class="resaltado">Regla de los 3 antes del docente:</span> antes de pedir ayuda, el equipo debe intentar 3 soluciones propias.</li>
+                    <li><span class="resaltado">Zona de pruebas:</span> los carros solo se colocan en el suelo dentro del área delimitada, para evitar colisiones entre equipos (7mo y 8vo año).</li>
+                    <li><span class="resaltado">Manejo seguro de componentes pequeños:</span> en 5to año, cada equipo cuenta con una bandeja para evitar la pérdida de engranajes y ejes; en los niveles con Arduino, los cables y resistencias se guardan en bolsas rotuladas por equipo.</li>
+                    <li><span class="resaltado">Tiempo de guardar:</span> 5 minutos antes del final, todos guardan piezas, desconectan las placas Arduino de la computadora y ordenan cables.</li>
+                    <li><span class="resaltado">Hoja de incidencias:</span> si una pieza, LED o sensor se pierde o daña, se registra inmediatamente para control de inventario.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección 3 -->
+        <div id="seccion-3" data-titulo="3. Progresión conceptual">
+            <h2 class="titulo-seccion">3. Progresión conceptual a través de los cuatro proyectos</h2>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">5to año — Nivel mecánico: transmisión de movimiento</h3>
+                <img src="transmision.png" alt="Nivel mecánico - Transmisión de movimiento" class="imagen-centrada">
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Concepto clave:</span> un sistema puede transformar velocidad en fuerza (torque) y viceversa, según la relación entre engranajes.</li>
+                    <li>No hay programación; el "control" del sistema es completamente manual y mecánico.</li>
+                    <li>Este nivel deja instalada la idea de que todo robot tiene una parte mecánica (motores, ruedas, engranajes) además de su parte de control, idea que se retomará al construir los carros de 7mo y 8vo año.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">6to año — Nivel de introducción electrónica: salidas digitales y temporización</h3>
+                <img src="salida digital.png" alt="Salidas digitales y temporización" class="imagen-centrada">
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Concepto clave:</span> un programa ejecuta instrucciones en orden (secuencia) y puede esperar un tiempo determinado antes de pasar a la siguiente instrucción.</li>
+                    <li>El semáforo no recibe información del entorno: solo repite un ciclo de tiempos fijos. Es el primer contacto de los estudiantes con el bucle "repetir siempre".</li>
+                    <li>Aquí se introduce por primera vez el Arduino Uno y el concepto de pin digital como salida (encender o apagar un LED).</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">7mo año — Nivel de sensores y decisiones: condicionales</h3>
+                <img src="sensores.png" alt="Nivel de sensores y decisiones" class="imagen-centrada">
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Concepto clave:</span> el programa puede "tomar decisiones" leyendo el entorno mediante un sensor y usando una estructura si/entonces/sino.</li>
+                    <li>El carro esquivador retoma la mecánica de ruedas y motores (conexión directa con la caja de cambios de 5to año: el chasis usa motores con reducción interna que cumplen la misma función de relación de transmisión) y agrega, por primera vez, una entrada de sensor (el HC-SR04) que modifica el comportamiento del programa.</li>
+                    <li>También retoma la temporización aprendida en el semáforo (6to año), ahora usada para controlar cuánto tiempo el carro retrocede o gira tras detectar un obstáculo.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">8vo año — Nivel de control comparativo: comportamiento autónomo</h3>
+                <img src="control.png" alt="Nivel de control comparativo" class="imagen-centrada">
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Concepto clave:</span> un robot puede comparar continuamente los valores de dos o más sensores para decidir hacia dónde moverse, generando un comportamiento que parece "seguir" un estímulo del entorno.</li>
+                    <li>El carro seguidor de luz reutiliza el mismo chasis, motores y módulo controlador que el carro esquivador de 7mo año, cambiando el sensor ultrasónico por dos sensores LDR y modificando la lógica de decisión de un condicional simple a una comparación entre dos entradas analógicas.</li>
+                    <li>Es el cierre del itinerario: el estudiante llega a comprender que el mismo hardware de base (motores, ruedas, controlador) puede comportarse de maneras distintas simplemente cambiando el sensor y la lógica de programación.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">Cuadro resumen de la progresión</h3>
+                <img src="Cuadro resumen de la progresión.png" alt="Cuadro resumen de la progresión" class="imagen-centrada">
+            </div>
+        </div>
+
+        <!-- Sección 4 -->
+        <div id="seccion-4" data-titulo="4. Actividades didácticas">
+            <h2 class="titulo-seccion">4. Actividades didácticas graduadas: los cuatro proyectos en detalle</h2>
+            
+            <div class="grid-proyectos">
+                
+                <!-- Proyecto 1 -->
+                <div>
+                    <button class="btn-desplegable btn-proyecto" aria-expanded="false">
+                        PROYECTO 1: Caja de Cambios (5to año de EGB) <span class="icono-flecha">▼</span>
+                    </button>
+                    <div class="info-oculta">
+                        
+                        <img src="1 caja .png" alt="Caja de Cambios" class="imagen-centrada">
+                        
+                        <table class="tabla-datos">
+                            <tbody>
+                                <tr>
+                                    <th>Nivel</th>
+                                    <td>5to año de Educación General Básica (9-10 años)</td>
+                                </tr>
+                                <tr>
+                                    <th>Duración</th>
+                                    <td>3-4 clases de 45 minutos</td>
+                                </tr>
+                                <tr>
+                                    <th>Materiales</th>
+                                    <td>Kit de engranajes rectos de distinto tamaño, ejes, soportes, base de montaje, manivela o motor DC simple sin control electrónico</td>
+                                </tr>
+                                <tr>
+                                    <th>Objetivo</th>
+                                    <td>Construir un mecanismo de dos o tres relaciones de transmisión y comprobar experimentalmente cómo cambia la velocidad y la fuerza de giro según el tamaño de los engranajes utilizados</td>
+                                </tr>
+                                <tr>
+                                    <th>Conceptos</th>
+                                    <td>Engranaje, piñón, corona, relación de transmisión, torque, tren de engranajes</td>
+                                </tr>
+                                <tr>
+                                    <th>Conexión curricular</th>
+                                    <td>Matemática (razones y proporciones, conteo de dientes), Ciencias Naturales (fuerza y movimiento), Tecnología (mecanismos simples)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 class="subtitulo-menor">Pasos de construcción</h4>
+                        <ol class="lista-numerada">
+                            <li><span class="resaltado">Paso 1:</span> identificar y contar los dientes de cada engranaje disponible en el kit.</li>
+                            <li><span class="resaltado">Paso 2:</span> montar un primer par de engranajes (uno pequeño como piñón motriz y uno grande como corona conducida) sobre la base.</li>
+                            <li><span class="resaltado">Paso 3:</span> girar el eje de entrada un número fijo de vueltas (por ejemplo, 5) y contar cuántas vueltas da el eje de salida.</li>
+                            <li><span class="resaltado">Paso 4:</span> calcular la relación de transmisión dividiendo el número de dientes del engranaje conducido entre el número de dientes del engranaje motriz.</li>
+                            <li><span class="resaltado">Paso 5:</span> repetir el proceso invirtiendo los engranajes (el pequeño como conducido y el grande como motriz) y comparar los resultados de velocidad y esfuerzo percibido al girar la manivela.</li>
+                            <li><span class="resaltado">Paso 6 (extensión):</span> armar un tren de tres engranajes en cadena y predecir, antes de probar, si el engranaje final girará más rápido o más lento que el primero.</li>
+                        </ol>
+
+                        <h4 class="subtitulo-menor">Actividad de cierre</h4>
+                        <div class="bloque-texto">
+                            <p>Cada equipo presenta su caja de cambios y explica, con sus propias palabras, en qué situación de la vida real conviene una relación de transmisión que priorice velocidad (por ejemplo, un ventilador) y en cuál conviene priorizar fuerza (por ejemplo, subir una cuesta en bicicleta). Esta reflexión prepara el terreno para 7mo y 8vo año, cuando los motores del carro esquivador y del carro seguidor de luz también tendrán una reducción interna que cumple la misma función.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 2 -->
+                <div>
+                    <button class="btn-desplegable btn-proyecto" aria-expanded="false">
+                        PROYECTO 2: Semáforo con Arduino Uno (6to año de EGB) <span class="icono-flecha">▼</span>
+                    </button>
+                    <div class="info-oculta">
+                        <img src="11 semaforo.jpg" alt="Semáforo con Arduino" class="imagen-centrada">
+                        
+                        <table class="tabla-datos">
+                            <tbody>
+                                <tr>
+                                    <th>Nivel</th>
+                                    <td>6to año de Educación General Básica (10-11 años)</td>
+                                </tr>
+                                <tr>
+                                    <th>Duración</th>
+                                    <td>3-4 clases de 45 minutos</td>
+                                </tr>
+                                <tr>
+                                    <th>Materiales</th>
+                                    <td>1 Arduino Uno, protoboard, cables jumper, 3 LEDs (rojo, amarillo, verde), 3 resistencias de 220 Ω, cable USB</td>
+                                </tr>
+                                <tr>
+                                    <th>Objetivo</th>
+                                    <td>Programar un semáforo peatonal o vehicular que repita de forma indefinida una secuencia de tiempos fijos entre sus tres luces</td>
+                                </tr>
+                                <tr>
+                                    <th>Conceptos</th>
+                                    <td>Salida digital, secuencia de instrucciones, temporización (delay), bucle infinito "repetir siempre"</td>
+                                </tr>
+                                <tr>
+                                    <th>Conexión curricular</th>
+                                    <td>Ciencias Naturales y Ciudadanía (seguridad vial y normas de tránsito), Matemática (medición de tiempo, proporciones entre intervalos)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 class="subtitulo-menor">Pasos de construcción del circuito</h4>
+                        <ul class="lista-didactica">
+                            <li>Conectar el LED rojo al pin digital 8 mediante una resistencia de 220 Ω, con el cátodo a GND.</li>
+                            <li>Conectar el LED amarillo al pin digital 9 y el LED verde al pin digital 10, siguiendo el mismo esquema.</li>
+                            <li>Verificar que todas las resistencias están en el circuito antes de energizar la placa, para no dañar los LEDs.</li>
+                        </ul>
+
+                        <h4 class="subtitulo-menor">Esquema de programación</h4>
+                        <div class="bloque-texto">
+                            <p>Se recomienda que el docente guíe la escritura del código junto con los estudiantes, explicando cada línea antes de cargarla. El siguiente es un esquema simplificado del programa (pseudocódigo/Arduino):</p>
+                        </div>
+                        
+                        <pre class="bloque-codigo">
+// Definición de pines
+int rojo = 8, amarillo = 9, verde = 10;
+
+void setup() {
+  pinMode(rojo, OUTPUT);
+  pinMode(amarillo, OUTPUT);
+  pinMode(verde, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(verde, HIGH);   // luz verde encendida
+  delay(5000);                 // espera 5 segundos
+  digitalWrite(verde, LOW);
+
+  digitalWrite(amarillo, HIGH); // luz amarilla encendida
+  delay(2000);                  // espera 2 segundos
+  digitalWrite(amarillo, LOW);
+
+  digitalWrite(rojo, HIGH);    // luz roja encendida
+  delay(5000);                 // espera 5 segundos
+  digitalWrite(rojo, LOW);
+}
+                        </pre>
+
+                        <h4 class="subtitulo-menor">Actividad de extensión</h4>
+                        <div class="bloque-texto">
+                            <p>Como actividad de extensión, se puede pedir a los equipos que midan con un cronómetro los tiempos reales de un semáforo cercano a la institución y ajusten los valores de <code>delay()</code> para reproducirlos, conectando así el proyecto con la observación del entorno.</p>
+                            <p><span class="resaltado">Variante peatonal (extensión para equipos avanzados):</span> Los equipos que terminan antes pueden agregar un cuarto LED que simule la señal peatonal, encendida únicamente durante el tiempo en que el semáforo vehicular está en rojo, lo que introduce una primera noción de sincronización entre dos secuencias.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 3 -->
+                <div>
+                    <button class="btn-desplegable btn-proyecto" aria-expanded="false">
+                        PROYECTO 3: Carro Esquivador (7mo año de EGB) <span class="icono-flecha">▼</span>
+                    </button>
+                    <div class="info-oculta">
+                        
+                        <img src="12 esquivador.jpg" alt="Carro Esquivador de Obstáculos" class="imagen-centrada">
+                        
+                        <table class="tabla-datos">
+                            <tbody>
+                                <tr>
+                                    <th>Nivel</th>
+                                    <td>7mo año de Educación General Básica (11-12 años)</td>
+                                </tr>
+                                <tr>
+                                    <th>Duración</th>
+                                    <td>4-5 clases de 45 minutos</td>
+                                </tr>
+                                <tr>
+                                    <th>Materiales</th>
+                                    <td>1 Arduino Uno, chasis con 2 o 4 motores DC y ruedas, módulo controlador de motores L298N, sensor ultrasónico HC-SR04, batería de 9V, cables jumper</td>
+                                </tr>
+                                <tr>
+                                    <th>Objetivo</th>
+                                    <td>El carro avanza en línea recta y, al detectar un obstáculo a menos de 20 cm, se detiene, retrocede y gira para continuar en otra dirección</td>
+                                </tr>
+                                <tr>
+                                    <th>Conceptos</th>
+                                    <td>Entrada analógica/digital de sensor, condicional si/entonces/sino, umbral de sensor, control de motores mediante un puente H</td>
+                                </tr>
+                                <tr>
+                                    <th>Conexión curricular</th>
+                                    <td>Ciencias Naturales y Tecnología (vehículos autónomos, seguridad), Matemática (medición de distancias y ángulos de giro)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 class="subtitulo-menor">Pasos de construcción</h4>
+                        <ul class="lista-didactica">
+                            <li>Montar el chasis con los motores y ruedas, verificando que ambos motores giren en la misma dirección al avanzar.</li>
+                            <li>Conectar el módulo L298N a los motores y luego a los pines digitales del Arduino Uno que controlarán la dirección y velocidad.</li>
+                            <li>Montar el sensor HC-SR04 en la parte frontal del chasis, con los pines Trigger y Echo conectados a dos pines digitales del Arduino.</li>
+                            <li>Conectar la batería al módulo controlador para alimentar los motores de forma independiente del Arduino.</li>
+                        </ul>
+
+                        <h4 class="subtitulo-menor">Esquema de programación</h4>
+                        <div class="bloque-texto">
+                            <p>El programa retoma la temporización usada en el semáforo de 6to año (para controlar cuánto tiempo dura el giro), pero incorpora por primera vez una lectura de sensor y una decisión condicional:</p>
+                        </div>
+                        
+                        <pre class="bloque-codigo">
+// Pines del sensor y de los motores (simplificado)
+const int trigger = 9, echo = 10;
+
+void loop() {
+  long distancia = medirDistancia(trigger, echo);
+
+  if (distancia < 20) {
+    detenerMotores();
+    retroceder();
+    delay(500);
+    girarDerecha();
+    delay(400);
+  } else {
+    avanzar();
+  }
+}
+                        </pre>
+
+                        <div class="bloque-texto">
+                            <p>La función <code>medirDistancia()</code> envía un pulso ultrasónico por el pin trigger y calcula la distancia a partir del tiempo que tarda en recibir el eco por el pin echo. El docente puede presentar esta función ya resuelta en 7mo año y enfocar la clase en la comprensión y modificación del condicional if/else, que es el concepto nuevo central del proyecto.</p>
+                        </div>
+
+                        <h4 class="subtitulo-menor">Actividad de extensión</h4>
+                        <div class="bloque-texto">
+                            <p>Los equipos que avancen más rápido pueden programar que el carro gire hacia el lado contrario de forma alternada cada vez que detecta un obstáculo, evitando quedar atrapado en un rincón, o incorporar un LED que se encienda cuando el carro detecta un obstáculo, retomando así el manejo de salidas digitales aprendido en el proyecto del semáforo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto 4 -->
+                <div>
+                    <button class="btn-desplegable btn-proyecto" aria-expanded="false">
+                        PROYECTO 4: Carro Seguidor de Luz (8vo año de EGB) <span class="icono-flecha">▼</span>
+                    </button>
+                    <div class="info-oculta">
+                        
+                        <img src="13 seguidor de luz.jpg" alt="Carro Seguidor de Luz" class="imagen-centrada">
+                        
+                        <table class="tabla-datos">
+                            <tbody>
+                                <tr>
+                                    <th>Nivel</th>
+                                    <td>8vo año de Educación General Básica (12-13 años)</td>
+                                </tr>
+                                <tr>
+                                    <th>Duración</th>
+                                    <td>4-5 clases de 45 minutos</td>
+                                </tr>
+                                <tr>
+                                    <th>Materiales</th>
+                                    <td>1 Arduino Uno, el mismo chasis con motores DC y módulo L298N usado en el carro esquivador, 2 sensores LDR (fotorresistencias), 2 resistencias de 10 kΩ, cables jumper, batería de 9V</td>
+                                </tr>
+                                <tr>
+                                    <th>Objetivo</th>
+                                    <td>El carro se orienta y avanza hacia la fuente de luz más intensa, comparando continuamente la lectura de dos sensores LDR ubicados a izquierda y derecha del chasis</td>
+                                </tr>
+                                <tr>
+                                    <th>Conceptos</th>
+                                    <td>Entrada analógica (analogRead), divisor de voltaje con LDR, comparación entre dos variables, control proporcional simple de dirección</td>
+                                </tr>
+                                <tr>
+                                    <th>Conexión curricular</th>
+                                    <td>Ciencias Naturales (luz y fototropismo, comparación con el comportamiento de las plantas), Física básica (circuito y resistencia variable), Matemática (comparación de magnitudes)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 class="subtitulo-menor">Pasos de construcción</h4>
+                        <ul class="lista-didactica">
+                            <li>Reutilizar el chasis, los motores y el módulo controlador L298N ya armados en el proyecto del carro esquivador de 7mo año, retirando el sensor ultrasónico.</li>
+                            <li>Montar un sensor LDR en el lado izquierdo y otro en el lado derecho del chasis, cada uno formando un divisor de voltaje con una resistencia de 10 kΩ.</li>
+                            <li>Conectar cada LDR a una entrada analógica del Arduino Uno (por ejemplo, A0 para el sensor izquierdo y A1 para el derecho).</li>
+                            <li>Calibrar los sensores realizando lecturas de prueba con distintas intensidades de luz antes de programar la lógica de movimiento.</li>
+                        </ul>
+
+                        <h4 class="subtitulo-menor">Esquema de programación</h4>
+                        <div class="bloque-texto">
+                            <p>Este proyecto retoma el condicional aprendido en el carro esquivador (7mo año), pero lo transforma en una comparación entre dos sensores en lugar de un solo umbral fijo, lo que constituye el concepto nuevo central de 8vo año:</p>
+                        </div>
+                        
+                        <pre class="bloque-codigo">
+const int ldrIzquierdo = A0, ldrDerecho = A1;
+
+void loop() {
+  int luzIzq = analogRead(ldrIzquierdo);
+  int luzDer = analogRead(ldrDerecho);
+  int diferencia = luzIzq - luzDer;
+
+  if (abs(diferencia) < 15) {
+    avanzar();               // luz pareja: avanza recto
+  } else if (diferencia > 0) {
+    girarIzquierda();        // hay más luz a la izquierda
+  } else {
+    girarDerecha();          // hay más luz a la derecha
+  }
+}
+                        </pre>
+
+                        <div class="bloque-texto">
+                            <p>El valor de tolerancia (15 en el ejemplo) debe ajustarse durante la calibración según el modelo de LDR y la iluminación del aula. Se recomienda que los estudiantes prueben distintos valores y registren en su diario de ingeniería cuál produce un seguimiento más estable.</p>
+                        </div>
+
+                        <h4 class="subtitulo-menor">Actividad de cierre del itinerario</h4>
+                        <div class="bloque-texto">
+                            <p>Como cierre de los cuatro años de trabajo, se sugiere organizar una muestra donde cada curso presente su proyecto en orden (caja de cambios, semáforo, esquivador y seguidor de luz), explicando en una frase qué concepto de su proyecto proviene del curso anterior. Esta actividad hace visible ante la comunidad educativa la continuidad del itinerario descrita en la sección 5.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Sección 5 -->
+        <div id="seccion-5" data-titulo="5. Currículo en espiral">
+            <h2 class="titulo-seccion">5. Relación entre los proyectos: un currículo en espiral</h2>
+            
+            <div class="bloque-texto">
+                <p>Los cuatro proyectos de esta guía no deben entenderse como unidades independientes asignadas de forma arbitraria a cada grado. Se diseñaron como un currículo en espiral: un mismo conjunto de ideas centrales (transmisión de movimiento, control del tiempo, toma de decisiones y comparación de información) se revisita en cada nivel con mayor profundidad y con herramientas más sofisticadas.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <img src="hilo de cambios.png" alt="Hilo de cambios" class="imagen-subtitulo">
+                <p>La caja de cambios de 5to año no es un proyecto aislado de mecánica pura: es la base conceptual que permite comprender, en 7mo y 8vo año, por qué los motores DC de los carros esquivador y seguidor de luz no giran a la velocidad máxima del motor, sino a la velocidad reducida que entrega su caja de engranajes interna (motorreductor). Un estudiante que comprendió en 5to año que un engranaje pequeño impulsando uno grande reduce la velocidad y aumenta la fuerza, entiende con mayor facilidad por qué los motores de los carros necesitan esa misma reducción para mover el peso del chasis.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <img src="control del tiempo.png" alt="Control del tiempo" class="imagen-subtitulo">
+                <p>El semáforo de 6to año introduce la función <code>delay()</code> y la idea de que un programa puede esperar un tiempo determinado antes de continuar. Este mismo mecanismo reaparece de forma directa en el carro esquivador de obstáculos de 7mo año, donde el tiempo de giro tras detectar un obstáculo se controla exactamente con la misma instrucción. El estudiante de 7mo año no aprende la temporización desde cero: la reconoce como algo que ya usó un año antes en otro contexto.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <img src="toma de decisiones.png" alt="Toma de decisiones" class="imagen-subtitulo">
+                <p>El carro esquivador de 7mo año introduce la estructura si/entonces/sino a partir de un solo sensor y un umbral fijo (¿la distancia es menor a 20 cm?). El carro seguidor de luz de 8vo año retoma exactamente esa misma estructura de decisión, pero la enriquece: en lugar de comparar un sensor con un número fijo, compara dos sensores entre sí. Pedagógicamente, esto permite que el docente de 8vo año presente el nuevo proyecto diciendo "ya saben usar un if para decidir; ahora vamos a decidir comparando dos valores en lugar de uno", en vez de introducir el condicional como si fuera un concepto completamente nuevo.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <img src="chasis.png" alt="Chasis compartido" class="imagen-subtitulo">
+                <p>Una decisión de diseño clave de este itinerario es que el carro esquivador (7mo año) y el carro seguidor de luz (8vo año) comparten el mismo chasis, los mismos motores y el mismo módulo controlador L298N. Solo cambia el sensor (de ultrasónico a fotorresistencias) y la lógica de programación. Esto permite que los estudiantes de 8vo año, muchos de los cuales ya construyeron un carro similar el año anterior, dediquen menos tiempo al montaje mecánico y más tiempo a comprender la nueva lógica de comparación, que es el verdadero objetivo de aprendizaje de ese nivel.</p>
+            </div>
+
+            <h3 class="subtitulo-seccion">5.5 Mapa de continuidad</h3>
+            <img src="Mapa de continuidad.png" alt="Mapa de continuidad" class="imagen-centrada">
+            <div class="bloque-texto">
+                <p>Se recomienda que el equipo docente de la institución comparta esta tabla entre los cuatro grados al inicio del año lectivo, de modo que cada docente sepa explícitamente qué conceptos previos puede dar por aprendidos y cuáles debe introducir por primera vez.</p>
+            </div>
+        </div>
+
+        <!-- Sección 6 -->
+        <div id="seccion-6" data-titulo="6. Estrategias pedagógicas">
+            <h2 class="titulo-seccion">6. Estrategias pedagógicas y orientaciones metodológicas</h2>
+            
+            <div class="bloque-texto">
+                <p>No existe una única forma de enseñar robótica y mecatrónica escolar. Lo que sí está claro es que el modelo transmisivo, donde el docente explica y los estudiantes escuchan, rinde poco en este campo: la robótica se aprende con las manos. Las siguientes metodologías han mostrado buenos resultados tanto en el proyecto mecánico de 5to año como en los tres proyectos con Arduino Uno.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">A. Aprendizaje Basado en Proyectos (ABP)</h3>
+                <p>Los estudiantes resuelven un problema real usando el mecanismo o el carro como herramienta. El docente actúa como guía y facilitador.</p>
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Paso 1 — Plantear el reto:</span> presentar un problema concreto al inicio (ej. "diseña una transmisión que permita subir una rampa con poco esfuerzo" en 5to año, o "diseña un carro que evite chocar en un pasillo estrecho" en 7mo año).</li>
+                    <li><span class="resaltado">Paso 2 — Investigar y diseñar:</span> los equipos investigan, proponen soluciones y las bocetan en papel antes de construir o programar.</li>
+                    <li><span class="resaltado">Paso 3 — Construir y programar:</span> fase práctica con iteraciones y ajustes continuos.</li>
+                    <li><span class="resaltado">Paso 4 — Presentar:</span> cada equipo muestra su solución, explica sus decisiones y recibe retroalimentación del grupo.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">B. Aprendizaje Colaborativo con Roles</h3>
+                <p>Grupos de 2-3 estudiantes con roles rotativos cada 20-25 minutos:</p>
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Constructor:</span> arma y ajusta las piezas mecánicas o el chasis del carro.</li>
+                    <li><span class="resaltado">Programador / Encargado de circuito:</span> en 5to año arma y prueba el mecanismo; en 6to, 7mo y 8vo año escribe, prueba y depura el código en el IDE de Arduino.</li>
+                    <li><span class="resaltado">Documentador:</span> registra en el diario de ingeniería los intentos, errores y soluciones encontradas.</li>
+                </ul>
+                <p>La rotación garantiza que todos los estudiantes practiquen todas las habilidades. Sin ella, quienes ya saben programar tienden a monopolizar el teclado.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">C. Pensamiento de Diseño (Design Thinking)</h3>
+                <p>Ciclo iterativo de 5 fases que enseña a los estudiantes a no temer al error, aplicable tanto a la caja de cambios como a los tres proyectos con Arduino:</p>
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Empatizar:</span> ¿para quién o para qué situación estamos diseñando? ¿qué problema necesita solución?</li>
+                    <li><span class="resaltado">Definir:</span> redactar el objetivo en una sola frase clara y medible.</li>
+                    <li><span class="resaltado">Idear:</span> lluvia de ideas sin límites; anotar todas las posibilidades antes de filtrar.</li>
+                    <li><span class="resaltado">Prototipar:</span> construir una versión rápida para probar (no tiene que ser perfecta).</li>
+                    <li><span class="resaltado">Probar:</span> ejecutar, medir resultados, identificar qué mejorar y volver a idear.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">D. Gamificación</h3>
+                <p>Transforma las actividades en misiones con recompensas para aumentar la motivación:</p>
+                <ul class="lista-didactica">
+                    <li><span class="resaltado">Niveles de misión:</span> Aprendiz (básico), Ingeniero (intermedio), Maestro Robótico (avanzado), adaptados a cada uno de los cuatro proyectos.</li>
+                    <li><span class="resaltado">Tabla de logros:</span> tablero visible en el aula con medallas por equipo (creatividad, precisión, trabajo en equipo).</li>
+                    <li><span class="resaltado">Torneo final:</span> en 7mo y 8vo año, competencia amistosa donde los carros compiten en tiempo o precisión en un recorrido cronometrado.</li>
+                    <li><span class="resaltado">Misiones bono:</span> retos opcionales más difíciles para los equipos que terminan antes, como las variantes mencionadas en cada proyecto de la sección 4.</li>
+                </ul>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">Diferenciación para distintos ritmos de aprendizaje</h3>
+                <img src="Diferenciación para distintos ritmos de aprendizaje.png" alt="Esquema de diferenciación para distintos ritmos de aprendizaje" class="imagen-centrada">
+            </div>
+        </div>
+
+        <!-- Sección 7 -->
+        <div id="seccion-7" data-titulo="7. Evaluación">
+            <h2 class="titulo-seccion">7. Evaluación y seguimiento del aprendizaje</h2>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">7.1 Rúbrica general de evaluación por proyecto</h3>
+                <p>La siguiente rúbrica se aplica a los cuatro proyectos, ajustando el criterio de "Programación" en 5to año por un criterio equivalente de "Montaje mecánico", ya que ese nivel no incluye código.</p>
+                <img src="rubrica.png" alt="Rúbrica general de evaluación" class="imagen-centrada">
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">7.2 Instrumentos de evaluación formativa</h3>
+                
+                <h4 class="subtitulo-menor">A. Diario de Ingeniería</h4>
+                <p>Cuaderno que cada equipo lleva durante todo el proyecto. Al final de cada sesión registran:</p>
+                <ul class="lista-didactica">
+                    <li>¿Qué intentamos construir o programar hoy?</li>
+                    <li>¿Qué funcionó correctamente? ¿Por qué crees que funcionó?</li>
+                    <li>¿Qué no funcionó? ¿Qué cambios realizamos para solucionarlo?</li>
+                    <li>¿Qué aprendimos hoy que no sabíamos antes, y en qué se parece a lo que vimos el año pasado en robótica?</li>
+                </ul>
+
+                <h4 class="subtitulo-menor">B. Reflexión 3-2-1 (al final de cada clase)</h4>
+                <p>Actividad individual de 3 minutos que da al docente información valiosa sobre el avance real del grupo:</p>
+                <ul class="lista-didactica">
+                    <li>3 cosas que aprendí hoy</li>
+                    <li>2 dificultades que encontré</li>
+                    <li>1 pregunta que me quedó sin responder</li>
+                </ul>
+
+                <h4 class="subtitulo-menor">C. Demostración en vivo (evaluación sumativa)</h4>
+                <p>Cada equipo tiene 5 minutos para:</p>
+                <ul class="lista-didactica">
+                    <li>Mostrar el mecanismo o el carro en funcionamiento en la zona de prueba.</li>
+                    <li>Mostrar el cálculo de la relación de transmisión (5to) o el código en la pantalla (6to, 7mo, 8vo) y explicar al menos una estructura clave del nivel (secuencia, condicional o comparación de sensores).</li>
+                    <li>Responder dos preguntas del docente o de otros equipos.</li>
+                </ul>
+
+                <h4 class="subtitulo-menor">D. Coevaluación entre equipos</h4>
+                <p>Los equipos evalúan a otro grupo usando una versión simplificada de la rúbrica. Desarrolla pensamiento crítico y la habilidad de dar retroalimentación constructiva. El docente puede usar estas evaluaciones como insumo, no como calificación directa.</p>
+            </div>
+
+            <div class="bloque-texto">
+                <h3 class="subtitulo-seccion">7.3 Indicadores de logro por nivel</h3>
+                
+                <h4 class="subtitulo-menor">5to año — Caja de cambios</h4>
+                <ul class="lista-didactica">
+                    <li>Identificar y contar correctamente los dientes de los engranajes del kit.</li>
+                    <li>Construir un tren de engranajes funcional siguiendo un diseño propio o guiado.</li>
+                    <li>Calcular la relación de transmisión entre dos engranajes acoplados.</li>
+                    <li>Explicar con sus propias palabras la relación entre velocidad y torque.</li>
+                </ul>
+
+                <h4 class="subtitulo-menor">6to año — Semáforo</h4>
+                <ul class="lista-didactica">
+                    <li>Conectar correctamente LEDs y resistencias en la protoboard a partir de un esquema.</li>
+                    <li>Programar una secuencia de encendido y apagado con tiempos determinados usando el Arduino Uno.</li>
+                    <li>Modificar los tiempos de un programa existente y predecir el efecto del cambio.</li>
+                </ul>
+
+                <h4 class="subtitulo-menor">7mo año — Carro esquivador de obstáculos</h4>
+                <ul class="lista-didactica">
+                    <li>Montar un chasis con motores, módulo controlador y sensor ultrasónico.</li>
+                    <li>Programar un condicional si/entonces/sino que module el comportamiento del carro según la distancia detectada.</li>
+                    <li>Ajustar el umbral de distancia y el tiempo de giro para mejorar el desempeño del carro.</li>
+                </ul>
+
+                <h4 class="subtitulo-menor">8vo año — Carro seguidor de luz</h4>
+                <ul class="lista-didactica">
+                    <li>Reutilizar y adaptar un chasis existente incorporando sensores nuevos (LDR).</li>
+                    <li>Programar una comparación entre dos entradas analógicas para decidir la dirección de giro.</li>
+                    <li>Calibrar los sensores y justificar el valor de tolerancia elegido.</li>
+                    <li>Explicar oralmente cómo el proyecto de 8vo año retoma ideas de los tres proyectos anteriores del itinerario.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección 8 -->
+        <div id="seccion-8" data-titulo="8. Referencias bibliográficas">
+            <h2 class="titulo-seccion">8. Referencias bibliográficas</h2>
+            
+            <ul class="lista-referencias">
+                <li>Arduino en la Escuela. (2021). <em>Arduino en la Escuela: una herramienta versátil para la enseñanza de programación y robótica</em>. ResearchGate. https://www.researchgate.net/publication/380174762_Arduino_en_la_Escuela_una_herramienta_versatil_para_la_ensenanza_de_programacion_y_robotica</li>
+                <li>Gómez Rodríguez, H. (2022). Robótica educativa utilizando el mBot en estudiantes de educación básica. <em>RIDE Revista Iberoamericana para la Investigación y el Desarrollo Educativo</em>, <em>13</em>(25). https://doi.org/10.23913/ride.v13i25.1274</li>
+                <li>González-López, M. (2025). La robótica como herramienta tecnológica y pedagógica en educación básica. <em>Boletín Opiniones Iberoamericanas en Educación</em>, (51). https://www.academia.edu/144395284/La_rob%C3%B3tica_como_herramienta_tecnol%C3%B3gica_y_pedag%C3%B3gica_en_educaci%C3%B3n_b%C3%A1sica</li>
+                <li>Hurtado, J., Zúñiga Muñoz, R., &amp; Salazar España, B. (2022). Robótica educativa como herramienta para el desarrollo del pensamiento computacional. Una revisión de la literatura. <em>Revista Educación en Ingeniería</em>, <em>17</em>(33). https://doi.org/10.26507/rei.v17n33.1216</li>
+                <li>López Espejo, M. del R. (2010). Análisis de una caja de cambios. <em>Revista Digital Innovación y Experiencias Educativas</em>, (29). https://archivos.csif.es/archivos/andalucia/ensenanza/revistas/csicsif/revista/pdf/Numero_29/MARIA_DEL_ROSARIO_LOPEZ_ESPEJO_02.pdf</li>
+                <li>Orienta21. (2026). <em>¿Qué es Arduino Education? Arduino Education: robótica y programación práctica en el aula</em>. https://www.orienta21.com/que-es-arduino-education/</li>
+                <li>Raposo-Rivas, M., García-Fuentes, O., &amp; Martínez-Figueira, M.-E. (2022). La robótica educativa desde las áreas STEAM en educación infantil. <em>Revista Prisma Social</em>, (38). https://revistaprismasocial.es/ps/article/view/4779/5361</li>
+                <li>Rodríguez Palacios, D. E., Cubillas Hernández, F. C., Vargas Olvera, L., &amp; Ávila Ramos, J. (2016). <em>Guía didáctica de robótica educativa con Arduino. Aplicaciones para el bachillerato</em>. Universidad Nacional Autónoma de México.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Script de Interactividad (Ventanas Modales y Acordeones) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. Función para inicializar botones tipo Acordeón (Desplegables)
+            function inicializarAcordeones(contenedor) {
+                const botones = contenedor.querySelectorAll('.btn-desplegable');
+                botones.forEach(boton => {
+                    const nuevoBoton = boton.cloneNode(true);
+                    boton.parentNode.replaceChild(nuevoBoton, boton);
+                    
+                    nuevoBoton.addEventListener('click', function() {
+                        const panel = this.nextElementSibling;
+                        if(panel && panel.classList.contains('info-oculta')) {
+                            panel.classList.toggle('activa');
+                            this.classList.toggle('abierto');
+                            this.setAttribute('aria-expanded', panel.classList.contains('activa'));
+                        }
+                    });
+                });
+            }
+
+            // Inicializar los acordeones estáticos (como el de la portada)
+            inicializarAcordeones(document.querySelector('.contenedor-principal'));
+
+            // 2. Lógica para la Ventana Modal (Pop-up)
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalBody = document.getElementById('modal-body');
+            const modalTitulo = document.getElementById('modal-titulo');
+            const btnCerrarModal = document.getElementById('btn-cerrar-modal');
+            const botonesSecciones = document.querySelectorAll('.btn-estructura');
+
+            // Abrir modal al hacer clic en los botones del índice
+            botonesSecciones.forEach(boton => {
+                boton.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const seccion = document.getElementById(targetId);
+                    
+                    if(seccion) {
+                        modalTitulo.textContent = seccion.getAttribute('data-titulo') || "Contenido de la Guía";
+                        modalBody.innerHTML = seccion.innerHTML;
+                        inicializarAcordeones(modalBody);
+                        
+                        modalOverlay.classList.add('activo');
+                        modalBody.scrollTop = 0; 
+                    }
+                });
+            });
+
+            // Función para cerrar modal
+            function cerrarModal() {
+                modalOverlay.classList.remove('activo');
+                setTimeout(() => { modalBody.innerHTML = ''; }, 300);
+            }
+
+            btnCerrarModal.addEventListener('click', cerrarModal);
+            
+            modalOverlay.addEventListener('click', function(e) {
+                if(e.target === modalOverlay) {
+                    cerrarModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if(e.key === 'Escape' && modalOverlay.classList.contains('activo')) {
+                    cerrarModal();
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

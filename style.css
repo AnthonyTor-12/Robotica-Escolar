@@ -1,0 +1,93 @@
+/* =========================================
+   Reseteo básico para evitar márgenes del navegador
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f6fa;
+}
+
+/* =========================================
+   Estilos del Encabezado (Flexbox)
+   ========================================= */
+.header-unl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid #004b87; /* Color azul institucional de ejemplo */
+}
+
+/* =========================================
+   Logos / Imágenes
+   ========================================= */
+.header-logo img {
+    width: 100px; /* Ajusta este valor según el tamaño real de tus sellos */
+    height: auto;
+    display: block;
+}
+
+/* =========================================
+   Tipografía y Bloque de Texto
+   ========================================= */
+.header-textos {
+    text-align: center;
+    flex-grow: 1;
+    padding: 0 20px;
+}
+
+.header-textos h1 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.header-textos h2 {
+    font-size: 1.3rem;
+    color: #34495e;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.header-textos h3 {
+    font-size: 1.1rem;
+    color: #555555;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.header-textos p {
+    font-size: 1.1rem;
+    color: #004b87;
+    font-weight: bold;
+}
+
+/* =========================================
+   Diseño Responsivo (Tablets y Móviles)
+   ========================================= */
+@media screen and (max-width: 768px) {
+    .header-unl {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .header-textos {
+        order: 2; /* En móviles, el texto va después del logo principal */
+    }
+
+    .logo-izquierdo {
+        order: 1; /* El sello principal va arriba */
+    }
+
+    .logo-derecho {
+        order: 3; /* El sello secundario va al final */
+    }
+}
